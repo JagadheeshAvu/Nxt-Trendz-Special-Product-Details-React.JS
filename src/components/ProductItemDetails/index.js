@@ -2,7 +2,7 @@
 
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {Loader} from 'react-loader-spinner'
+import Loader from 'react-loader-spinner'
 import {BsDashSquare, BsPlusSquare} from 'react-icons/bs'
 import Cookies from 'js-cookie'
 
@@ -42,6 +42,8 @@ class ProductItemDetails extends Component {
   })
 
   getDetails = async () => {
+    this.setState({apiStatus: apiStatusConstants.inProgress})
+
     const {match} = this.props
     const {params} = match
     const {id} = params
@@ -88,7 +90,7 @@ class ProductItemDetails extends Component {
     }
   }
 
-  rendersuccessDetails = () => {
+  renderSuccessDetails = () => {
     const {similarProductsData, productsList} = this.state
     const {
       imageUrl,
@@ -190,7 +192,7 @@ class ProductItemDetails extends Component {
 
     switch (apiStatus) {
       case apiStatusConstants.success:
-        return this.rendersuccessDetails()
+        return this.renderSuccessDetails()
       case apiStatusConstants.failure:
         return this.renderFailureView()
       case apiStatusConstants.inProgress:
